@@ -13,16 +13,16 @@ export type DashboardMetrics = {
 export function buildDashboardEmbed(metrics: DashboardMetrics): EmbedBuilder {
   return new EmbedBuilder()
     .setColor(embedTheme.primary)
-    .setTitle('◇ TNT 1478 | Dashboard')
-    .setDescription('لوحة التحكم الرئيسية - نظرة سريعة على الأنظمة')
+    .setTitle('🎛️ TNT Control Panel | لوحة التحكم')
+    .setDescription('*مختصرة – قوية – فخمة مثل الشعار*\n\nلوحة التحكم الرئيسية - نظرة سريعة على الأنظمة')
     .addFields(
-      { name: 'Server', value: metrics.guildName, inline: true },
-      { name: 'DB', value: metrics.databaseHealth, inline: true },
-      { name: 'Uptime', value: `${metrics.uptimeSeconds}s`, inline: true },
-      { name: 'Schedules', value: String(metrics.schedulesCount), inline: true },
-      { name: 'Notifications', value: String(metrics.notificationsEnabled), inline: true },
-      { name: 'Maintenance', value: String(metrics.maintenanceMode), inline: true }
+      { name: '🏠 Server', value: metrics.guildName, inline: true },
+      { name: '🗄️ DB', value: metrics.databaseHealth, inline: true },
+      { name: '⏱️ Uptime', value: `${metrics.uptimeSeconds}s`, inline: true },
+      { name: '📅 Schedules', value: String(metrics.schedulesCount), inline: true },
+      { name: '🔔 Notifications', value: metrics.notificationsEnabled ? '✅' : '❌', inline: true },
+      { name: '🔧 Maintenance', value: metrics.maintenanceMode ? '✅' : '❌', inline: true }
     )
-    .setFooter({ text: 'TNT 1478 Control Center' })
+    .setFooter({ text: '👑 TNT 1478 Control Center' })
     .setTimestamp();
 }
