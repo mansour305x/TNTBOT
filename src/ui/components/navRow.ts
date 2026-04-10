@@ -11,7 +11,7 @@ export function buildNavRow(backSection?: string): ActionRowBuilder<ButtonBuilde
     row.addComponents(
       new ButtonBuilder()
         .setCustomId(`tnt_nav:back:${backSection}`)
-        .setLabel('← رجوع | Back')
+        .setLabel('◀️ رجوع | Back')
         .setStyle(ButtonStyle.Secondary)
     );
   }
@@ -20,7 +20,7 @@ export function buildNavRow(backSection?: string): ActionRowBuilder<ButtonBuilde
     new ButtonBuilder()
       .setCustomId('tnt_nav:home')
       .setLabel('🏠 الرئيسية | Home')
-      .setStyle(ButtonStyle.Secondary)
+      .setStyle(ButtonStyle.Primary)
   );
 
   return row;
