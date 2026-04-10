@@ -1,0 +1,7 @@
+{
+  "token": "DISCORD_BOT_TOKEN_HERE",
+  "clientId": "DISCORD_CLIENT_ID_HERE",
+  "guildId": "DISCORD_GUILD_ID_HERE",
+  "defaultLanguage": "ar",
+  "defaultTimezone": "Asia/Riyadh"
+}

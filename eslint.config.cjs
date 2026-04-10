@@ -9,6 +9,29 @@ module.exports = [
   },
   js.configs.recommended,
   {
+    // CommonJS JavaScript files for dashboard
+    files: ['**/*.js'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: {
+        process: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        console: 'readonly',
+        setTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearTimeout: 'readonly',
+        clearInterval: 'readonly'
+      }
+    },
+    rules: {
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
+    }
+  },
+  {
     files: ['**/*.ts'],
     languageOptions: {
       parser: tsParser,
