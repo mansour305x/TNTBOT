@@ -33,7 +33,7 @@ function addLog(guildId, logEntry) {
   
   const guildLogs = logsData.get(guildId);
   const entry = {
-    id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `log_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`,
     ...logEntry,
     timestamp: new Date().toISOString()
   };

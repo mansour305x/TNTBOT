@@ -11,6 +11,7 @@ const config = require('../dashboard-config.json');
  * @param {string} userId - User ID to check
  */
 function isOwner(userId) {
+  if (!config.ownerId) return false;
   return userId === config.ownerId;
 }
 
