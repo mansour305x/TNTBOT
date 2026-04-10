@@ -31,7 +31,7 @@ export function buildOwnerPanel(): ActionRowBuilder<ButtonBuilder>[] {
   const row2 = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId('tnt_l2:owner:advlogs')
-      .setLabel('📊 Logs Master | السجلات المتقدمة')
+      .setLabel('📊 Advanced Logs | السجلات المتقدمة')
       .setStyle(ButtonStyle.Secondary),
     new ButtonBuilder()
       .setCustomId('tnt_l2:owner:errorcenter')

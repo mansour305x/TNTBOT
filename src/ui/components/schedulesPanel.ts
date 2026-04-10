@@ -22,13 +22,13 @@ export function buildSchedulesPanel(): ActionRowBuilder<ButtonBuilder>[] {
     new ButtonBuilder()
       .setCustomId('tnt_l2:schedules:delete')
       .setLabel('🗑️ Delete Schedule | حذف جدولة')
-      .setStyle(ButtonStyle.Danger),
+      .setStyle(ButtonStyle.Danger)
+  );
+  const row2 = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId('tnt_l2:schedules:duplicate')
       .setLabel('📑 Duplicate | نسخ')
-      .setStyle(ButtonStyle.Secondary)
-  );
-  const row2 = new ActionRowBuilder<ButtonBuilder>().addComponents(
+      .setStyle(ButtonStyle.Secondary),
     new ButtonBuilder()
       .setCustomId('tnt_l2:schedules:toggle')
       .setLabel('🔘 Enable/Disable | تشغيل/إيقاف')
