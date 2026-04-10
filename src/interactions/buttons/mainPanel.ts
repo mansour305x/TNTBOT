@@ -5,7 +5,7 @@ import { config } from '../../config/config.js';
 import { ScheduleService } from '../../modules/schedules/service.js';
 import { SettingsService } from '../../modules/settings/settingsService.js';
 import type { ButtonHandler } from '../../types/interaction.js';
-import { buildDashboardActionsPanel } from '../../ui/components/dashboardPanel.js';
+import { buildDashboardL2Panel } from '../../ui/components/dashboardPanel.js';
 import { buildMainPanel, buildMainPanelOwner } from '../../ui/components/mainPanel.js';
 import { buildManagementPanel } from '../../ui/components/managementPanel.js';
 import { buildOwnerPanel } from '../../ui/components/ownerPanel.js';
@@ -24,7 +24,7 @@ const settingsService = new SettingsService();
 const scheduleService = new ScheduleService();
 
 async function updateDashboard(interaction: ButtonInteraction): Promise<void> {
-  const rows = [buildMainPanel(), buildMainPanelOwner()];
+  const baseRows = [buildMainPanel(), buildMainPanelOwner()];
   const guildId = interaction.guildId;
   const isDbUp = database.getHealth() === 'connected';
   const settings = (guildId && isDbUp) ? await settingsService.getOrCreate(guildId).catch(() => null) : null;
@@ -42,12 +42,12 @@ async function updateDashboard(interaction: ButtonInteraction): Promise<void> {
         maintenanceMode: settings?.maintenanceMode ?? false
       })
     ],
-    components: [...rows, buildDashboardActionsPanel()]
+    components: [...baseRows, ...buildDashboardL2Panel()]
   });
 }
 
 async function updateToSection(interaction: ButtonInteraction): Promise<void> {
-  const rows = [buildMainPanel(), buildMainPanelOwner()];
+  const baseRows = [buildMainPanel(), buildMainPanelOwner()];
 
   if (interaction.customId === 'tnt_dashboard') {
     await updateDashboard(interaction);
@@ -55,25 +55,25 @@ async function updateToSection(interaction: ButtonInteraction): Promise<void> {
   }
 
   if (interaction.customId === 'tnt_schedules') {
-    await interaction.update({ embeds: [buildSchedulesEmbed()], components: [...rows, buildSchedulesPanel()] });
+    await interaction.update({ embeds: [buildSchedulesEmbed()], components: [...baseRows, ...buildSchedulesPanel()] });
     return;
   }
 
   if (interaction.customId === 'tnt_management') {
     await interaction.update({
       embeds: [buildManagementEmbed()],
-      components: [...rows, buildManagementPanel()]
+      components: [...baseRows, ...buildManagementPanel()]
     });
     return;
   }
 
   if (interaction.customId === 'tnt_settings') {
-    await interaction.update({ embeds: [buildSettingsEmbed()], components: [...rows, buildSettingsPanel()] });
+    await interaction.update({ embeds: [buildSettingsEmbed()], components: [...baseRows, ...buildSettingsPanel()] });
     return;
   }
 
   if (interaction.customId === 'tnt_smart') {
-    await interaction.update({ embeds: [buildSmartEmbed()], components: [...rows, buildSmartPanel()] });
+    await interaction.update({ embeds: [buildSmartEmbed()], components: [...baseRows, ...buildSmartPanel()] });
     return;
   }
 
@@ -83,7 +83,7 @@ async function updateToSection(interaction: ButtonInteraction): Promise<void> {
       return;
     }
 
-    await interaction.update({ embeds: [buildOwnerEmbed()], components: [...rows, buildOwnerPanel()] });
+    await interaction.update({ embeds: [buildOwnerEmbed()], components: [...baseRows, ...buildOwnerPanel()] });
     return;
   }
 
@@ -95,7 +95,7 @@ async function updateToSection(interaction: ButtonInteraction): Promise<void> {
   if (interaction.customId === 'tnt_clear_cache') {
     scheduler.clear();
     await scheduleService.hydrate();
-    await interaction.reply({ content: 'Scheduler cache reloaded successfully.', ephemeral: true });
+    await interaction.reply({ content: '✅ تم إعادة تحميل الجدولات بنجاح. | Scheduler cache reloaded.', ephemeral: true });
     return;
   }
 
@@ -114,7 +114,7 @@ async function updateToSection(interaction: ButtonInteraction): Promise<void> {
       return;
     }
 
-    await interaction.reply({ content: 'Restart signal accepted. Process will exit now.', ephemeral: true });
+    await interaction.reply({ content: '🔄 جارٍ إعادة التشغيل... | Restart signal accepted.', ephemeral: true });
     process.exit(0);
   }
 }
@@ -131,3 +131,4 @@ export const mainPanelButtonHandlers: ButtonHandler[] = [
   { customId: 'tnt_restart_bot', execute: updateToSection },
   { customId: 'tnt_setup_open', execute: updateToSection }
 ];
+

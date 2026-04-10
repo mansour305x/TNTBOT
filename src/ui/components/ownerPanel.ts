@@ -1,11 +1,21 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-import { withTntEmoji } from '../utils/emoji.js';
+import { buildNavRow } from './navRow.js';
 
-export function buildOwnerPanel(): ActionRowBuilder<ButtonBuilder> {
-  return new ActionRowBuilder<ButtonBuilder>().addComponents(
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_owner_overview').setLabel('Overview').setStyle(ButtonStyle.Primary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_owner_system').setLabel('System').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_owner_database').setLabel('Database').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_owner_updates').setLabel('Updates').setStyle(ButtonStyle.Secondary))
+/** Complete Level-2 panel for Owner Panel section (9 subsections in 2 rows + nav). */
+export function buildOwnerPanel(): ActionRowBuilder<ButtonBuilder>[] {
+  const row1 = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder().setCustomId('tnt_l2:owner:overview').setLabel('◇ Overview | نظرة عامة').setStyle(ButtonStyle.Primary),
+    new ButtonBuilder().setCustomId('tnt_l2:owner:system').setLabel('◇ System Control | التحكم بالنظام').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:owner:database').setLabel('◇ Database | قاعدة البيانات').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:owner:backup').setLabel('◇ Backup | النسخ الاحتياطي').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:owner:developers').setLabel('◇ Developers | المطورين').setStyle(ButtonStyle.Secondary)
   );
+  const row2 = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder().setCustomId('tnt_l2:owner:integrations').setLabel('◇ Integrations | التكاملات').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:owner:advlogs').setLabel('◇ Advanced Logs | السجلات المتقدمة').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:owner:errorcenter').setLabel('◇ Error Center | مركز الأخطاء').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:owner:updates').setLabel('◇ Updates | التحديثات').setStyle(ButtonStyle.Secondary)
+  );
+  return [row1, row2, buildNavRow()];
 }
+

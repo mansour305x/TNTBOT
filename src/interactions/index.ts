@@ -6,6 +6,9 @@ import { schedulesButtonHandlers } from './buttons/schedules.js';
 import { settingsButtonHandlers } from './buttons/settings.js';
 import { smartButtonHandlers } from './buttons/smart.js';
 import { setupButtonHandlers } from './buttons/setup.js';
+import { navButtonHandlers } from './buttons/nav.js';
+import { l2ButtonHandlers } from './buttons/l2.js';
+import { l3ButtonHandlers } from './buttons/l3.js';
 
 import { handler as createScheduleModal } from './modals/schedules/createScheduleModal.js';
 import { handler as editScheduleModal } from './modals/schedules/editScheduleModal.js';
@@ -17,13 +20,19 @@ import { setupModalHandlers } from './modals/setup/setupModals.js';
 import { scheduleSelectHandlers } from './selectMenus/schedules.js';
 
 export const buttonHandlers: ButtonHandler[] = [
+  // Exact-match handlers (checked first; order matters for prefix routing)
   ...mainPanelButtonHandlers,
   ...schedulesButtonHandlers,
   ...managementButtonHandlers,
   ...settingsButtonHandlers,
   ...smartButtonHandlers,
   ...ownerButtonHandlers,
-  ...setupButtonHandlers
+  ...setupButtonHandlers,
+  // Navigation (Back / Home) – prefix on tnt_nav:back:
+  ...navButtonHandlers,
+  // Hierarchical navigation (L2 → L3, L3 actions) – prefix on tnt_l2: / tnt_l3:
+  ...l2ButtonHandlers,
+  ...l3ButtonHandlers
 ];
 
 export const modalHandlers: ModalHandler[] = [
@@ -37,3 +46,4 @@ export const modalHandlers: ModalHandler[] = [
 ];
 
 export const selectMenuHandlers: SelectMenuHandler[] = [...scheduleSelectHandlers];
+

@@ -1,11 +1,15 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-import { withTntEmoji } from '../utils/emoji.js';
+import { buildNavRow } from './navRow.js';
 
-export function buildSettingsPanel(): ActionRowBuilder<ButtonBuilder> {
-  return new ActionRowBuilder<ButtonBuilder>().addComponents(
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_set_language').setLabel('Language').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_set_timezone').setLabel('Timezone').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_set_colors').setLabel('Colors').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_set_notifications').setLabel('Notifications').setStyle(ButtonStyle.Secondary))
+/** Complete Level-2 panel for Settings section (5 subsections + nav). */
+export function buildSettingsPanel(): ActionRowBuilder<ButtonBuilder>[] {
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder().setCustomId('tnt_l2:settings:language').setLabel('◇ Language | اللغة').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:settings:timezone').setLabel('◇ Timezone | المنطقة الزمنية').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:settings:colors').setLabel('◇ Colors | الألوان').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:settings:notifications').setLabel('◇ Notifications | الإشعارات').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:settings:botsettings').setLabel('◇ Bot Settings | إعدادات البوت').setStyle(ButtonStyle.Secondary)
   );
+  return [row, buildNavRow()];
 }
+

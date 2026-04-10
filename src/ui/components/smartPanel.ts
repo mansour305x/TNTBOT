@@ -1,11 +1,14 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-import { withTntEmoji } from '../utils/emoji.js';
+import { buildNavRow } from './navRow.js';
 
-export function buildSmartPanel(): ActionRowBuilder<ButtonBuilder> {
-  return new ActionRowBuilder<ButtonBuilder>().addComponents(
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_smart_reminders').setLabel('Reminders').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_smart_scheduler').setLabel('Scheduler').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_smart_shield').setLabel('Shield').setStyle(ButtonStyle.Secondary)),
-    withTntEmoji(new ButtonBuilder().setCustomId('tnt_smart_replies').setLabel('Replies').setStyle(ButtonStyle.Secondary))
+/** Complete Level-2 panel for Smart Systems section (4 subsections + nav). */
+export function buildSmartPanel(): ActionRowBuilder<ButtonBuilder>[] {
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder().setCustomId('tnt_l2:smart:reminders').setLabel('◇ Smart Reminders | تذكيرات ذكية').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:smart:scheduler').setLabel('◇ Smart Scheduler | جدولة ذكية').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:smart:shield').setLabel('◇ Smart Shield | حماية ذكية').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('tnt_l2:smart:replies').setLabel('◇ Smart Replies | ردود ذكية').setStyle(ButtonStyle.Secondary)
   );
+  return [row, buildNavRow()];
 }
+
