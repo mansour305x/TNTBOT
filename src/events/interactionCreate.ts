@@ -23,7 +23,9 @@ export async function onInteractionCreate(interaction: Interaction): Promise<voi
     }
 
     if (interaction.isButton()) {
-      const handler = buttonHandlers.find((h) => h.customId === interaction.customId);
+      const handler = buttonHandlers.find((h) =>
+        h.prefix ? interaction.customId.startsWith(h.customId) : h.customId === interaction.customId
+      );
       if (handler) {
         await handler.execute(interaction);
       }
